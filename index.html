@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Viia nd sayang Ariya 🥺</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffe6e6, #fff0f5);
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .text-box {
+      background-color: rgba(255, 255, 255, 0.6);
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: inline-block;
+      z-index: 10;
+      position: relative;
+    }
+    h2, p.desc, h3, #instruction {
+      position: relative;
+      z-index: 10;
+    }
+    h2 {
+      color: #c0392b;
+      margin-top: 30px;
+      font-size: 2.2em;
+    }
+    p.desc {
+      font-size: 1.1em;
+      margin-bottom: 40px;
+      color: #555;
+    }
+    .btn {
+      padding: 15px 25px;
+      font-size: 1em;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    #yesBtn {
+      background-color: #f39c12;
+      color: white;
+      z-index: 1;
+    }
+    #noBtn {
+      background-color: #e74c3c;
+      color: white;
+      z-index: 2;
+    }
+    #button-wrapper {
+      position: relative;
+      margin-top: 30px;
+      z-index: 1;
+    }
+    #button-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 0 20px;
+      z-index: 10;
+    }
+    #cursor-dot {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background-color: #ff69b4;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 999;
+      display: none;
+    }
+    #instruction {
+      margin-top: 30px;
+      font-size: 0.95em;
+      color: #666;
+    }
+    .emoji {
+      font-size: 2em;
+      animation: float 4s infinite ease-in-out;
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+    @media (max-width: 768px) {
+      h1 { font-size: 1.8em; }
+      .btn { font-size: 0.9em; }
+      #cursor-dot {
+        display: block;
+      }
+    }
+
+    #loadingScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    #loadingScreen h2 {
+      color: #c0392b;
+      margin-bottom: 10px;
+    }
+
+    #loadingScreen p {
+      font-size: 1em;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div id="loadingScreen">
+    <h2>Hai Cintaku Duniaku 💌</h2>
+    <p>Coba klik ❤️ ini deh</p>
+  </div>
+
+  <audio id="bgm" loop>
+    <source src="https://media.vocaroo.com/mp3/1hhkLbLiNIVd" type="audio/mpeg">
+    Lagu tidak tersedia.
+  </audio>
+
+  <h2 class="text-box">Coba Jawab Pertanyaan Ini</h2><br>
+  <p class="desc text-box">Klik tombolnya!.</p><br>
+
+  <!-- KONTEKS BARU -->
+  <h3 class="text-box">Viia engga sayang Ariya kan? :p</h3>
+  <h3 class="text-box">Ahh jujur aja coba :p</h3>
+
+  <p class="text-box">
+    IYA KAN IYA KAN IYA KAN??!!。
+  </p>
+  <p class="text-box">
+    AHHH IYA PASTI TUUHHHHHHH !!
+  </p>
+
+  <div id="button-wrapper">
+    <div id="button-container">
+      <button class="btn" id="yesBtn">Iya, Engga sayang 😤</button>
+      <button class="btn" id="noBtn">Sayang dong ❤️</button>
+    </div>
+  </div>
+
+  <div id="cursor-dot"></div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const cursorDot = document.getElementById("cursor-dot");
+
+    window.addEventListener('click', function () {
+      const audio = document.getElementById('bgm');
+      audio.play().catch(e => {
+        console.log("Autoplay gagal:", e);
+      });
+
+      const splash = document.getElementById('loadingScreen');
+      if (splash) splash.style.display = 'none';
+    }, { once: true });
+
+    yesBtn.onclick = function () {
+      window.location.href =
+        "https://wa.me/6281383564028?text=iya%20aku%gak%20sayang%20kamu";
+    };
+
+    let moveCooldown = false;
+
+    function moveCursorDot(e) {
+      cursorDot.style.left = e.clientX + "px";
+      cursorDot.style.top = e.clientY + "px";
+    }
+
+    document.addEventListener("mousemove", function (e) {
+      moveCursorDot(e);
+      const rect = noBtn.getBoundingClientRect();
+      const distX = e.clientX - (rect.left + rect.width / 2);
+      const distY = e.clientY - (rect.top + rect.height / 2);
+      const distance = Math.sqrt(distX * distX + distY * distY);
+
+      if (distance < 200 && !moveCooldown) {
+        moveCooldown = true;
+        const offsetX = (Math.random() - 0.5) * 600;
+        const offsetY = (Math.random() - 0.5) * 600;
+        let newX = rect.left + offsetX;
+        let newY = rect.top + offsetY;
+
+        newX = Math.max(0, Math.min(window.innerWidth - rect.width, newX));
+        newY = Math.max(0, Math.min(window.innerHeight - rect.height, newY));
+
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = `${newX}px`;
+        noBtn.style.top = `${newY}px`;
+
+        setTimeout(() => { moveCooldown = false; }, 120);
+      }
+    });
+
+    const emojiList = ["🐱", "😺", "😻", "😽", "🐾", "🐈", "🐈‍⬛", "💕", "💖", "💞", "💘", "🌸", "😽", "💗"];
+    const avoidZone = document.querySelectorAll('.text-box');
+
+    for (let i = 0; i < 70; i++) {
+      let span = document.createElement("span");
+      span.classList.add("emoji");
+      span.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+
+      let top, left, overlap;
+      do {
+        top = Math.random() * window.innerHeight;
+        left = Math.random() * window.innerWidth;
+        overlap = false;
+        avoidZone.forEach(box => {
+          const rect = box.getBoundingClientRect();
+          if (left >= rect.left && left <= rect.right &&
+              top >= rect.top && top <= rect.bottom) {
+            overlap = true;
+          }
+        });
+      } while (overlap);
+
+      span.style.left = left + 'px';
+      span.style.top = top + 'px';
+      document.body.appendChild(span);
+    }
+  </script>
+</body>
+</html>
